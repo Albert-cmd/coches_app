@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  albertgapache:
+    container_name: albertgapache
+    build: .
+    #image: php:5.6-apache
+    volumes:
+      - /var/www/html/proyectos_foxize/proyecto_crud_coches/crud_coches:/var/www/html/
+    ports:
+      - 8084:80

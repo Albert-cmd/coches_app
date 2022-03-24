@@ -1,0 +1,7 @@
+create table coches (id int not null auto_increment primary key, modelo varchar(50), descripcion text,
+año int, activo boolean, fecha_alta datetime , fecha_modificacion timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
+create table marcas ( id int not null auto_increment primary key, nombre varchar(50), descripcion text,
+activo boolean, fecha_alta datetime , fecha_modificacion timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+

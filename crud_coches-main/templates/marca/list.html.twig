@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}Lista de marcas{% endblock %}
+{% block body %}
+    <h1>Lista de marcas</h1>
+    <form action="{{ path('marcas_new') }}" method="post">
+        <button class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+        </button>
+        <input type="hidden" name="_method" value="PUT">
+    </form>
+    <table class="table table-hover" >
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th><th scope="col">Nombre</th><th scope="col">Fecha alta</th><th scope="col">Descripcion</th>
+            <th scope="col">Activo</th><th scope="col">Elimina/Edita</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for marca in marcas %}
+            <tr>
+                <td>{{ marca.id }}</td>
+                <td>{{ marca.nombre }}</td>
+                <td>{{ marca.fechaAlta|date("m/d/Y") }}</td>
+                <td>{{ marca.descripcion }}</td>
+                <td>{{ marca.activo ? 'Si' : 'No' }}</td>
+                <td>
+                    <form action="{{path('marcas_delete',{'id':marca.id})}}" onclick="return confirm('Quieres eliminar la marca?')">
+                        <button type="submit" value="Elimina" class = "btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                    <form action="{{path('marcas_edit',{'id':marca.id})}}">
+                        <button type="submit" value="Edita" class= "btn btn-warning">
+                            <i class="fa fa-folder-open"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no hay marcas registradas en la base de datos.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="{{ path('marcas_busca') }}" method="post" >
+        <div class="form-group pull-left">
+            <label>
+                <input type="search" name="searchterm" class="form-control" placeholder="Busca" />
+            </label>
+        </div>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary pull-right">
+                <span class="fa fa-search"></span>
+            </button>
+        </div>
+        <div class="pull-left">
+            <label>
+                Muestra solo activos:
+                <input type="checkbox" class="form-check-input" name="activos">
+            </label>
+        </div>
+    </form>
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(marcas) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Edita un coche{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h2>Edita un coche</h2>
+                {{ form_start(form) }}
+                <span class="input-group-btn">
+                            {{ form_row(form.modelo, { 'attr': {'class': 'form-control'} }) }}
+                 </span>
+                {{ form_row(form.activo, {'attr':{'class':'form-check-input'}})}}
+                {{ form_row(form.ano)}}
+                {{ form_row(form.descripcion,{ 'attr': {'class': 'form-control'} } )}}
+                {{ form_row(form.Crear, { 'attr': {'class': 'btn btn-primary'} })}}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

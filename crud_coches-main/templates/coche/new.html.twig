@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Crea un nuevo coche{% endblock %}
+{% block body %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <h2>Añade un nuevo coche</h2>
+                    {{ form_start (form)}}
+                        <span class="input-group-btn">
+                            {{ form_row(form.modelo, { 'attr': {'class': 'form-control','type':'text','required':'true','minlenght':'1','maxlenght':'50'} }) }}
+                        </span>
+                        {{form_row(form.marca, {'attr':{'class':'mdb-select md-form'}})}}
+                        {{ form_row(form.propietario, {'attr':{'id':'prop_input','required':'true','type':'email','pattern':'^[a-zA-Z0–9+_.-]+@[a-zA-Z0–9.-]+$'}}) }}
+                        {{ form_row(form.activo,{'attr':{'class':'form-check-input'}})}}
+                        {{ form_row(form.ano,{'attr':{'type':'number','pattern':'/^(199\d|200\d|2999)$/'}})}}
+                        {{ form_row(form.descripcion,{ 'attr': {'class': 'form-control','type':'text','minlenght':'1','maxlenght':'100'}})}}
+                        {{ form_row(form.imagen)  }}
+                        {{ form_row(form.Crear, { 'attr': {'class': 'btn btn-primary'} })}}
+                    {{ form_end (form)}}
+                </div>
+            </div>
+        </div>
+{% endblock %}

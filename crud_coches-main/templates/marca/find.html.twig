@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Busqueda detallada{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h3>Realiza una busqueda detallada sobre la tabla marcas:</h3>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+                <a href="{{ path('marcas_list') }}">Vuelve a la lista</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

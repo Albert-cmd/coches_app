@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% block title %}Lista de coches{% endblock %}
+{% block body %}
+    <h1>Lista de coches</h1>
+    <form action="{{ path('coches_new') }}" method="post">
+        <button class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+        </button>
+        <input type="hidden" name="_method" value="PUT">
+    </form>
+    <table class="table table-hover" >
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+            {{knp_pagination_sortable(coches,'Id','c.id')}}
+            </th>
+            <th scope="col">
+                {{knp_pagination_sortable(coches,'Marca','m.nombre')}}
+            </th>
+            <th scope="col">
+                {{knp_pagination_sortable(coches,'Modelo','c.modelo')}}
+            </th>
+            <th scope="col">
+                {{knp_pagination_sortable(coches,'Fecha','c.fechaAlta')}}
+            </th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">
+                {{knp_pagination_sortable(coches,'Ano','c.ano')}}
+            </th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Activo</th>
+            <th scope="col">Elimina/Edita</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for coche in coches %}
+            <tr>
+                <td>{{ coche.id }}</td>
+                {% if coche.Marca is empty %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ coche.Marca.nombre}}</td>
+                {% endif %}
+                <td>{{ coche.modelo }}</td>
+                <td>{{ coche.fechaAlta|date("m/d/Y") }}</td>
+                <td>{{ coche.descripcion }}</td>
+                <td>{{ coche.ano }}</td>
+                <td>
+                        <img class="img-fluid img-thumbnail" src="{{ asset('uploads/' ~ coche.getImagen()) }}" alt="imagen no encontrada en el servidor" width="200px" height="200px">
+                </td>
+                <td> {{ coche.activo ? 'Si' : 'No' }}</td>
+                <td>
+                    <form action="{{path('coches_delete',{'id':coche.id})}}" onclick="return confirm('Quieres eliminar el coche?')">
+                            <button type="submit" value="Elimina" class = "btn btn-danger">
+                                 <i class="fa fa-trash"></i>
+                             </button>
+                    </form>
+                        <form action="{{path('coches_edit',{'id':coche.id})}}">
+                        <button type="submit" value="Edita" class= "btn btn-warning">
+                            <i class="fa fa-folder-open"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no hay coches en la base de datos.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="{{ path('coches_busca') }}" method="post" >
+        <div class="form-group pull-left">
+            <label>
+                <input type="search" name="searchterm" class="form-control" placeholder="Busca" />
+            </label>
+        </div>
+        <div class="pull-left">
+            <button type="submit" class="btn btn-primary pull-right">
+                <span class="fa fa-search"></span>
+            </button>
+        </div>
+        <div class="pull-left">
+            <label>
+                Muestra solo activos:
+                <input type="checkbox" class="form-check-input" name="activos">
+            </label>
+            <a href="{{ path('coches_list') }}">Busqueda detallada</a>
+        </div>
+    </form>
+    <nav aria-label="">
+        <div class="pagination justify-content-center" >
+            <ul class="pagination">
+                {{ knp_pagination_render(coches) }}
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
